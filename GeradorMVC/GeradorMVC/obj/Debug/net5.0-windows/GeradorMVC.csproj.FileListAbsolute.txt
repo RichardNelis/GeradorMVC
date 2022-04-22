@@ -1,0 +1,17 @@
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Debug\net5.0-windows\GeradorMVC.exe
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Debug\net5.0-windows\GeradorMVC.deps.json
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Debug\net5.0-windows\GeradorMVC.runtimeconfig.json
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Debug\net5.0-windows\GeradorMVC.runtimeconfig.dev.json
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Debug\net5.0-windows\GeradorMVC.dll
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Debug\net5.0-windows\ref\GeradorMVC.dll
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Debug\net5.0-windows\GeradorMVC.pdb
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\GeradorMVC.csproj.GenerateResource.cache
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\GeradorMVC.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\GeradorMVC.AssemblyInfoInputs.cache
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\GeradorMVC.AssemblyInfo.cs
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\GeradorMVC.csproj.CoreCompileInputs.cache
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\GeradorMVC.dll
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\ref\GeradorMVC.dll
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\GeradorMVC.pdb
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\GeradorMVC.genruntimeconfig.cache
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\obj\Debug\net5.0-windows\GeradorMVC.FormGerador.resources

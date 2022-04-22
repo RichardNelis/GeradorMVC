@@ -1,0 +1,5 @@
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Release\net5.0-windows\publish\GeradorMVC.exe
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Release\net5.0-windows\publish\GeradorMVC.dll
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Release\net5.0-windows\publish\GeradorMVC.deps.json
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Release\net5.0-windows\publish\GeradorMVC.runtimeconfig.json
+C:\Users\Richard\Documents\GitHub\GeradorMVC\GeradorMVC\bin\Release\net5.0-windows\publish\GeradorMVC.pdb
