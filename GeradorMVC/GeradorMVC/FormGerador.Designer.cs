@@ -46,6 +46,7 @@ namespace GeradorMVC
             this.NomeExibicao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.DataTable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dg_Atributos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +61,6 @@ namespace GeradorMVC
             this.cb_acesso.Name = "cb_acesso";
             this.cb_acesso.Size = new System.Drawing.Size(130, 23);
             this.cb_acesso.TabIndex = 1;
-            this.cb_acesso.SelectedIndex = 0;
             // 
             // lbl_controller
             // 
@@ -199,7 +199,7 @@ namespace GeradorMVC
             "DateTime"});
             this.Tipo.Name = "Tipo";
             this.Tipo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;            
+            this.Tipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // DataTable
             // 
@@ -211,12 +211,23 @@ namespace GeradorMVC
             this.DataTable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.DataTable.TrueValue = "1";
             // 
-            // Form1
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(684, 371);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(171, 15);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Desenvolvido por Richard Nelis";
+            // 
+            // FormGerador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(868, 378);
+            this.ClientSize = new System.Drawing.Size(868, 395);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tb_tabela);
             this.Controls.Add(this.label2);
@@ -233,7 +244,7 @@ namespace GeradorMVC
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "FormGerador";
             this.Text = "Gerador Códigio - MVC";
             ((System.ComponentModel.ISupportInitialize)(this.dg_Atributos)).EndInit();
             this.ResumeLayout(false);
@@ -259,6 +270,7 @@ namespace GeradorMVC
         private System.Windows.Forms.DataGridViewTextBoxColumn NomeExibicao;
         private System.Windows.Forms.DataGridViewComboBoxColumn Tipo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn DataTable;
+        private System.Windows.Forms.Label label4;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -7,7 +8,7 @@ namespace GeradorMVC
 {
     public partial class FormGerador : Form
     {
-        readonly String directory = @"c:\GeradorCodigo";
+        readonly String directory = @"C:\GeradorCodigo";
 
         public FormGerador()
         {
@@ -39,17 +40,17 @@ namespace GeradorMVC
 
         private void Btn_gerar_codigo_Click(object sender, EventArgs e)
         {
-            String message = String.Empty;
-
-            String path = $"{directory}\\{tb_controller.Text}";
+            String message;
             MessageBoxIcon msgBox;
+            String path = $"{directory}\\{tb_controller.Text}";
 
             try
             {
                 CamadaAplicacao(path);
                 CamadaNegocio(path);
 
-                message = "Código gerado com sucesso!";
+                message = "Código gerado com sucesso!\n";
+                message += $"Caminho: {path}";
                 msgBox = MessageBoxIcon.Information;
             }
             catch (Exception ex)
@@ -83,7 +84,7 @@ namespace GeradorMVC
                 .AppendLine("")
                 .AppendLine($"namespace Sistema.{tb_sistema.Text}.Cn.mvcCn.{tb_controller.Text}")
                 .AppendLine("{")
-                .AppendLine($"    [Table(\"{tb_tabela.Text}\", Schema = \"public\")]")
+                .AppendLine($"    [Table(\"{tb_tabela.Text.ToLower().Trim()}\", Schema = \"public\")]")
                 .AppendLine($"    public class {tb_controller.Text} : ddAuditoria")
                 .AppendLine("    {")
                 .AppendLine("        [Key]")
@@ -95,8 +96,10 @@ namespace GeradorMVC
 
             for (int i = 0; i < (dg_Atributos.Rows.Count - 1); i++)
             {
-                String coluna = dg_Atributos[0, i].Value.ToString();
-                String nome = dg_Atributos[1, i].Value.ToString();
+                String coluna = dg_Atributos[0, i].Value.ToString().ToLower().Trim();
+                String nome = dg_Atributos[1, i].Value.ToString().Trim();
+                nome = nome.Substring(0, 1) + nome.Substring(1, nome.Length - 1);
+
                 String nomeExibicao = dg_Atributos[2, i].Value.ToString();
                 String tipo = dg_Atributos[3, i].Value.ToString();
                 int.TryParse((String)dg_Atributos[4, i].Value, out int ckDataTable);
@@ -113,6 +116,8 @@ namespace GeradorMVC
 
                 code.AppendLine("        public " + tipo + " " + nome + " { get; set; }");
             }
+
+            String db = tb_controller.Text.Substring(0, 1).ToLower() + tb_controller.Text.Substring(1, tb_controller.Text.Length - 1);
 
             code.AppendLine("    }")
                 .AppendLine("")
@@ -153,7 +158,7 @@ namespace GeradorMVC
                 .AppendLine("                int idCodigo = 0;")
                 .AppendLine("                int.TryParse(id_codigo, out idCodigo);")
                 .AppendLine("")
-                .AppendLine($"                return contexto.{tb_controller.Text}.FirstOrDefault(x => x.Id{tb_controller.Text} == idCodigo);")
+                .AppendLine($"                return contexto.{db}.FirstOrDefault(x => x.Id{tb_controller.Text} == idCodigo);")
                 .AppendLine("            }")
                 .AppendLine("        }")
                 .AppendLine("")
@@ -161,7 +166,7 @@ namespace GeradorMVC
                 .AppendLine("        {")
                 .AppendLine("            using (Contexto contexto = new Contexto())")
                 .AppendLine("            {")
-                .AppendLine($"                return contexto.{tb_controller.Text}.ToList();")
+                .AppendLine($"                return contexto.{db}.ToList();")
                 .AppendLine("            }")
                 .AppendLine("        }")
                 .AppendLine("")
@@ -185,11 +190,11 @@ namespace GeradorMVC
             }
 
             code.AppendLine("                        new ddAuditoria().AuditaRegistro(entidade);")
-                .AppendLine($"                        contexto.{tb_controller.Text}.Add(entidade);")
+                .AppendLine($"                        contexto.{db}.Add(entidade);")
                 .AppendLine("                    }")
                 .AppendLine("                    else")
                 .AppendLine("                    {")
-                .AppendLine($"                        {tb_controller.Text} atualizado = contexto.{tb_controller.Text}.Find(entidade.Id{tb_controller.Text});");
+                .AppendLine($"                        {tb_controller.Text} atualizado = contexto.{db}.Find(entidade.Id{tb_controller.Text});");
 
             for (int i = 0; i < (dg_Atributos.Rows.Count - 1); i++)
             {
@@ -321,23 +326,24 @@ namespace GeradorMVC
                 .AppendLine("using System.Collections.Generic;")
                 .AppendLine("using System.Linq;")
                 .AppendLine("using System.Web;")
+                .AppendLine($"using dd = Sistema.{tb_sistema.Text}.Cn.mvcCn.{tb_controller.Text};")
                 .AppendLine("")
                 .AppendLine($"namespace Sistema.{cb_acesso.SelectedItem}.{tb_sistema.Text}.Models.{tb_controller.Text}")
                 .AppendLine("{")
                 .AppendLine($"    public class Mv{tb_controller.Text}")
                 .AppendLine("    {")
-                .AppendLine($"        public " + tb_controller.Text + " " + tb_controller.Text + " { get; set; }")
+                .AppendLine($"        public dd." + tb_controller.Text + " " + tb_controller.Text + " { get; set; }")
                 .AppendLine("")
                 .AppendLine($"        public Mv{tb_controller.Text}()")
                 .AppendLine("        {")
-                .AppendLine($"            {tb_controller.Text} = new {tb_controller.Text}();")
+                .AppendLine($"            {tb_controller.Text} = new dd.{tb_controller.Text}();")
                 .AppendLine("        }")
                 .AppendLine("")
                 .AppendLine($"        public void {tb_controller.Text}DataTables(JQueryDataTableParamModels param, HttpRequestBase Request, out object data)")
                 .AppendLine("        {")
-                .AppendLine($"            IEnumerable<{tb_controller.Text}> todosRegistros = {tb_controller.Text}Constructor.{tb_controller.Text}EF().ListarTodos();")
-                .AppendLine($"            IEnumerable<{tb_controller.Text}> registrosFiltrados = todosRegistros;")
-                .AppendLine($"            Func<{tb_controller.Text}, object> funcaoOrdenacao;")
+                .AppendLine($"            IEnumerable<dd.{tb_controller.Text}> todosRegistros = {tb_controller.Text}Constructor.{tb_controller.Text}EF().ListarTodos();")
+                .AppendLine($"            IEnumerable<dd.{tb_controller.Text}> registrosFiltrados = todosRegistros;")
+                .AppendLine($"            Func<dd.{tb_controller.Text}, object> funcaoOrdenacao;")
                 .AppendLine("            var colunaOrdenada = Convert.ToInt32(Request[\"iSortCol_0\"]);")
                 .AppendLine("")
                 .AppendLine("            var direcaoOrdenacao = Request[\"sSortDir_0\"];")
@@ -354,6 +360,8 @@ namespace GeradorMVC
                 .AppendLine("            {")
                 .AppendLine("                registrosFiltrados = todosRegistros.Where(c => (");
 
+            List<String> fieldsDataTable = new();
+
             for (int i = 0; i < (dg_Atributos.RowCount - 1); i++)
             {
                 String nome = dg_Atributos[1, i].Value.ToString();
@@ -366,10 +374,16 @@ namespace GeradorMVC
 
                 if (ckDataTable == 1)
                 {
-                    code.AppendLine($"                    (String.IsNullOrEmpty(c.{nome}{format}{toUpper})) || c.{nome}{format}{toUpper}).Contains(m.{nome}{format}{toUpper}).Trim()))");
-                }
+                    fieldsDataTable.Add($"                    (String.IsNullOrEmpty(c.{nome}{format}{toUpper}) || c.{nome}{format}{toUpper}.Contains(m.{nome}{format}{toUpper}.Trim()))");
 
-                if (i < (dg_Atributos.RowCount - 2))
+                }
+            }
+
+            for (int i = 0; i < fieldsDataTable.Count; i++)
+            {
+                code.AppendLine(fieldsDataTable[i]);
+
+                if (i < (fieldsDataTable.Count - 1))
                 {
                     code.AppendLine("                    &&");
                 }
@@ -469,10 +483,10 @@ namespace GeradorMVC
         private void CreateViewsIndex(String path)
         {
             StringBuilder code = new StringBuilder();
-            code.AppendLine($"@model Sistema.{cb_acesso.SelectedItem}.{tb_sistema.Text}.Models.Mv{tb_controller.Text}")
+            code.AppendLine($"@model Sistema.{cb_acesso.SelectedItem}.{tb_sistema.Text}.Models.{tb_controller.Text}.Mv{tb_controller.Text}")
                 .AppendLine("")
                 .AppendLine("@{")
-                .AppendLine($"    String caminho = \"app/{cb_acesso.SelectedItem.ToString().ToLower()}/{tb_controller.Text}\";")
+                .AppendLine($"    String caminho = \"app/{tb_sistema.Text.ToString().ToLower()}/{tb_controller.Text}\";")
                 .AppendLine("}")
                 .AppendLine("")
                 .AppendLine($"<h2>{tb_controller.Text}</h2>")
@@ -499,7 +513,7 @@ namespace GeradorMVC
                 .AppendLine("            p.urlSelect = @Url.CustomUrl(caminho, \"Cadastro\").ToString();")
                 .AppendLine("        }")
                 .AppendLine("")
-                .AppendLine($"        @Html.CustomDataTables(new Sistema.{tb_sistema.Text}.Cn.mvcCn.{tb_controller.Text}(), p)")
+                .AppendLine($"        @Html.CustomDataTables(new Sistema.{tb_sistema.Text}.Cn.mvcCn.{tb_controller.Text}.{tb_controller.Text}(), p)")
                 .AppendLine("    </div>")
                 .AppendLine("</div>");
 
@@ -511,10 +525,10 @@ namespace GeradorMVC
         private void CreateViewsCadastro(String path)
         {
             StringBuilder code = new StringBuilder();
-            code.AppendLine($"@model Sistema.{cb_acesso.SelectedItem}.{tb_sistema.Text}.Models.Mv{tb_controller.Text}")
+            code.AppendLine($"@model Sistema.{cb_acesso.SelectedItem}.{tb_sistema.Text}.Models.{tb_controller.Text}.Mv{tb_controller.Text}")
                 .AppendLine("")
                 .AppendLine("@{")
-                .AppendLine($"    String caminho = \"app/{cb_acesso.SelectedItem.ToString().ToLower()}/{tb_controller.Text}\";")
+                .AppendLine($"    String caminho = \"app/{tb_sistema.Text.ToString().ToLower()}/{tb_controller.Text}\";")
                 .AppendLine("}")
                 .AppendLine("")
                 .AppendLine($"<h2>{tb_controller.Text}</h2>")
