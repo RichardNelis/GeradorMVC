@@ -29,12 +29,9 @@ namespace GeradorMVC
 
         private static void CreateFile(String file, String text)
         {
-            // Create the file, or overwrite if the file exists.
-            using (FileStream fs = File.Create(file))
+            using (StreamWriter sw = new StreamWriter(File.Open(file, FileMode.Create), Encoding.UTF8))
             {
-                byte[] info = new UTF8Encoding(true).GetBytes(text);
-                // Add some information to the file.
-                fs.Write(info, 0, info.Length);
+                sw.WriteLine(text);
             }
         }
 
@@ -53,7 +50,7 @@ namespace GeradorMVC
                 message += $"Caminho: {path}";
                 msgBox = MessageBoxIcon.Information;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 message = "Erro ao tentar gerar o código.";
                 msgBox = MessageBoxIcon.Error;
